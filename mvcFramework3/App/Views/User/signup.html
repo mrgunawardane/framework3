@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>User Signup</title>
+</head>
+<body>
+    <h1>Welcome</h1>
+    
+    <form class="signup-form" action="#" method="post">
+        <label for="firstName">First Name : </label>
+        <input type="text" name="firstName" placeholder="Enter first name">
+        <br><br>
+        <label for="lastName">Last Name : </label>
+        <input type="text" name="lastName" placeholder="Enter last name">
+        <br><br>
+        <label for="email">Email : </label>
+        <input type="text" name="email" placeholder="Enter email">
+        <br><br>
+        <label for="password">Password : </label>
+        <input type="password" name="password" placeholder="Enter new password">
+        <br><br>
+        <label for="repeatpassword">Repeat Password : </label>
+        <input type="password" name="repeatpassword" placeholder="Enter password again">
+        <br><br>
+
+        <button type="submit" class="signupbtn">Signup</button>
+
+        <p id="success-message"></p>
+    </form>
+
+    <script>  
+        
+    let form = document.querySelector(".signup-form")
+    form.onsubmit = async (e) =>{
+        e.preventDefault();
+
+        var url = 'http://localhost/mvcFramework3/public/user/signup' 
+        const dataa = {'username': 'example'}
+        
+        let response = await fetch(url, {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body: new FormData(form),
+        })
+        // .then((response) => response.json())
+        // .then((data) => console.log(data))
+        // .catch((error) => {
+        //     console.error('Error', error)
+        // })
+        let result = await response
+        console.log(result)
+
+        var jsonData = JSON.parse('<?= $data; ?>');
+        console.log(jsonData);
+
+        document.getElementById("success-message").innerHTML = jsonData.successMessage
+    }
+    </script>
+</body>
+</html>
